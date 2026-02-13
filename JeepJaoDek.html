@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Give For JaoDek 💖</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Mali:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffe6e9;
+            --text-color: #d65a78;
+            --btn-color: #ff8fa3;
+            --gift-box-color: #ffbdc9;
+            --gift-ribbon-color: #ff6b81;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Mali', cursive;
+            background: linear-gradient(180deg, #fff0f3 0%, #ffe6e9 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- Background Animation --- */
+        .falling-item {
+            position: absolute;
+            top: -50px;
+            font-size: 20px;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 0;
+            filter: blur(1px);
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* --- Sparkle Effect --- */
+        .sparkle {
+            position: absolute;
+            width: 8px; height: 8px;
+            background-color: #ffd700;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 200;
+            box-shadow: 0 0 10px #ffd700;
+            animation: sparkle-anim 1s ease-out forwards;
+        }
+        @keyframes sparkle-anim {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1.5) translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+
+        /* --- Main Container --- */
+        .container {
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Premium Brush Heart Ripple (หัวใจพู่กัน) --- */
+        .heart-ripple {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 600px; 
+            height: 600px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 5;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='none' stroke='%23ff6b81' stroke-width='15' stroke-linecap='round' stroke-linejoin='round' d='M397.4,61.4c-48.5-5.6-96.1,19.3-124.6,60.8c-23.7-45.7-72.7-74.9-123.6-67C82,65.6,35.7,118.8,35.7,185.7 c0,57.1,35.2,107.7,85.2,156.4c52.3,50.9,114.9,94.3,130.3,105.1c3.1,2.1,7.1,2.2,10.2,0c15.4-10.8,77.9-54.2,130.3-105.1 c50-48.7,85.2-99.3,85.2-156.4C476.7,117.5,444.6,66.8,397.4,61.4z M356,86c34,0,61,28,61,65s-33,85-161,196 C134,233,95,188,95,151c0-37,33-65,71-65c26,0,48,15,59,38l31,63l31-63C298,101,324,86,356,86z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: drop-shadow(0 0 20px rgba(255, 107, 129, 0.8)) drop-shadow(0 0 40px rgba(255, 20, 147, 0.4));
+        }
+        
+        .play-heart-anim {
+            animation: heartRipple 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes heartRipple {
+            0% { transform: translate(-50%, -50%) scale(0.2) rotate(-10deg); opacity: 0; }
+            40% { opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.4) rotate(0deg); opacity: 0; }
+        }
+
+        /* --- Premium GIF Styling --- */
+        .main-gif {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 8px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 50px rgba(255, 143, 163, 0.4);
+            margin-bottom: 30px;
+            background-color: #fff;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        .gif-change-anim {
+            animation: cinematicSwitch 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes cinematicSwitch {
+            0% { opacity: 1; transform: scale(1); filter: blur(0px); }
+            50% { opacity: 0; transform: scale(0.95); filter: blur(5px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+        }
+
+        /* --- Premium Glass Text Box --- */
+        .text-box {
+            background: rgba(255, 255, 255, 0.75);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(214, 90, 120, 0.1);
+            min-height: 180px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            z-index: 10;
+        }
+
+        .dialogue {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            transition: opacity 0.4s;
+            font-weight: 500;
+        }
+
+        /* ตัวอักษรใหญ่หน้าแรก */
+        .intro-text {
+            font-size: 2rem; 
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 5px rgba(255, 143, 163, 0.3);
+            animation: pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .highlight {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            font-weight: 700;
+            display: block;
+            margin-top: 15px;
+            text-shadow: 2px 2px 10px rgba(214, 90, 120, 0.2);
+            animation: pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Premium Button --- */
+        .btn-next {
+            background: linear-gradient(135deg, #ff8fa3 0%, #ff7a92 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 122, 146, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-next:hover { 
+            transform: translateY(-3px) scale(1.02); 
+            box-shadow: 0 15px 30px rgba(255, 122, 146, 0.5);
+            filter: brightness(1.1);
+        }
+        .btn-next:active { transform: scale(0.95); }
+
+        /* --- Surprise Section --- */
+        .surprise-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.8s ease; 
+        }
+        
+        .surprise-container.show-surprise {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* --- 3D GIFT BOX --- */
+        .gift-container-3d {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            perspective: 1000px;
+            cursor: pointer;
+            animation: bounceGift 3s infinite ease-in-out;
+            transition: all 0.8s ease-in-out;
+            z-index: 50; 
+            transform: translateY(50px);
+            opacity: 0;
+            animation: floatUpBox 1s forwards, bounceGift 3s infinite ease-in-out 1s;
+        }
+        
+        @keyframes floatUpBox {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .gift-container-3d.vanish {
+            opacity: 0;
+            transform: scale(0.1) rotate(20deg);
+            pointer-events: none;
+        }
+
+        .gift-box-3d {
+            width: 100%; height: 100%; position: absolute;
+            transform-style: preserve-3d; transition: transform 1s;
+        }
+        .gift-face {
+            position: absolute; width: 220px; height: 220px;
+            background: var(--gift-box-color); border: 2px solid #fff;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.05);
+        }
+        .gift-face::before, .gift-face::after { content: ''; position: absolute; background: var(--gift-ribbon-color); box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        .gift-face.front::before, .gift-face.back::before, .gift-face.top::before, .gift-face.bottom::before { width: 35px; height: 100%; }
+        .gift-face.front::after, .gift-face.back::after, .gift-face.top::after, .gift-face.bottom::after { width: 100%; height: 35px; }
+        .gift-face.left::before, .gift-face.right::before { width: 35px; height: 100%; }
+        
+        .gift-face.front  { transform: rotateY(0deg) translateZ(110px); }
+        .gift-face.back   { transform: rotateY(180deg) translateZ(110px); }
+        .gift-face.left   { transform: rotateY(-90deg) translateZ(110px); }
+        .gift-face.right  { transform: rotateY(90deg) translateZ(110px); }
+        .gift-face.bottom { transform: rotateX(-90deg) translateZ(110px); }
+        
+        .gift-lid {
+            position: absolute; width: 220px; height: 220px;
+            top: -10px; left: 0; transform-style: preserve-3d;
+            transform-origin: top back; transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 5;
+        }
+        .gift-face.top { 
+            transform: rotateX(90deg) translateZ(110px); background: #ffcad4;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .bow { 
+            position: absolute; top: -50px; left: 50%; 
+            transform: translateX(-50%); font-size: 70px; 
+            color: var(--gift-ribbon-color); 
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+        }
+
+        .gift-container-3d.open .gift-lid { transform: rotateX(-120deg) translateY(-30px); }
+        .gift-container-3d.open { animation: none; }
+
+        @keyframes bounceGift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        /* --- Rose Style --- */
+        .rose-img {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 280px;
+            height: auto;
+            object-fit: contain;
+            transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: drop-shadow(0 20px 40px rgba(233, 150, 122, 0.6));
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .rose-show {
+            top: 35% !important;
+            transform: translate(-50%, -50%) scale(1.3) !important; 
+            opacity: 1;
+        }
+
+        /* --- Final Message Style --- */
+        .final-msg {
+            position: fixed;
+            top: 68%; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 450px;
+            font-size: 1.3rem;
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.85);
+            padding: 35px 25px;
+            border-radius: 35px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(255, 143, 163, 0.3);
+            border: 2px solid rgba(255,255,255,0.9);
+            opacity: 0;
+            transition: opacity 1s 0.5s, transform 1s 0.5s;
+            z-index: 110;
+        }
+        
+        .final-msg.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-20px);
+        }
+
+        .hidden { display: none !important; }
+        .fade-out-up { animation: fadeOutUp 0.8s forwards; }
+        @keyframes fadeOutUp { to { opacity: 0; transform: translateY(-100vh); } }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" src="music.mp3" preload="auto"></audio>
+
+    <div class="container" id="story-container">
+        <div class="heart-ripple" id="heart-anim"></div>
+
+        <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbml3YWFtcm9pejRiN2w2eTVhdW1obHkzdHVxcjZvcTFzdHFzdDNqYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SjvgcbEMEptM0KpvJ4/giphy.gif" alt="Cute Gif" class="main-gif" id="main-image">
+        
+        <div class="text-box">
+            <p class="dialogue intro-text" id="dialogue-text">ก๊อกๆ...มีคนแก่มาจีบ</p>
+            <button class="btn-next" onclick="nextStep()" id="action-btn">เปิดประตู 🚪</button>
+        </div>
+    </div>
+
+    <div class="surprise-container" id="surprise-box">
+        <h2 id="gift-title" style="color: var(--text-color); margin-bottom: 40px; font-size: 1.5rem; transition: opacity 0.5s; text-shadow: 0 2px 10px rgba(255,255,255,0.5);">ของขวัญสำหรับหนูครับ 👇</h2>
+        
+        <div class="gift-container-3d" id="gift-container" onclick="openGift()">
+            <div class="gift-box-3d">
+                <div class="gift-face front"></div>
+                <div class="gift-face back"></div>
+                <div class="gift-face left"></div>
+                <div class="gift-face right"></div>
+                <div class="gift-face bottom"></div>
+            </div>
+            <div class="gift-lid">
+                <div class="gift-face top">
+                     <div class="bow">🎀</div>
+                </div>
+            </div>
+        </div>
+        
+        <img src="A064_PNG.png" alt="Old Rose" class="rose-img" id="rose-flower">
+        
+        <div class="final-msg" id="final-text">
+            มียาแก้แพ้มั้ยกำลังแพ้เด็ก (ที่ไม่ใช่ซัมเมอร์)<br>
+            แต่เป็น 🫵 <br>
+            <span style="font-size: 1rem; color: #888;">(เขินจัง >///<)</span>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Background Animation ---
+        function createFallingItem() {
+            const items = ['🌸', '💖', '✨', '🤍', '🧡'];
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            item.innerText = items[Math.floor(Math.random() * items.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = Math.random() * 5 + 8 + 's';
+            item.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(item);
+            setTimeout(() => { item.remove(); }, 13000);
+        }
+        setInterval(createFallingItem, 300);
+
+        // --- 2. Sparkles ---
+        function createSparkles(x, y) {
+            for (let i = 0; i < 40; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 250 + 50;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+                const color = ['#FFD700', '#FF69B4', '#FFF', '#FF4500'][Math.floor(Math.random() * 4)];
+                sparkle.style.backgroundColor = color;
+                sparkle.style.setProperty('--tx', tx);
+                sparkle.style.setProperty('--ty', ty);
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1200);
+            }
+        }
+
+        // --- 3. Content Data ---
+        // GIF สำหรับแต่ละหน้า
+        const gifList = [
+            "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTNyOXZ5ZHlnNWoweGtzaG4waGFzbnA4OHhra2J3ZGRmNjNoc2Y4cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YLPOIP1jPu1N87yemm/giphy.gif", // 1. จ๊ะเอ๋
+            "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmJueTFzNnN4bTI3cDZ2Z3F1cDkyb2M1cDMxYWQ3bnZxN2ltdmI1ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7NNqJw0T3cb62PMzXR/giphy.gif", // 2. พี่ยังชอบ
+            "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2c2dGtzMmN0M2J1MGRucnR0ODE3bmMyMm11YXZ3eWdhMTFoYjV1YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif", // 3. แต่พี่ก็จะ
+            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGJtOXFqb3VleHc5dDd1OTEybTUyamVuMnJlenJteXk0MXF1bnFmciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1JmGiBtqTuehfYxuy9/giphy.gif", // 4. ไม่ว่าวันไหน
+            "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGJtOXFqb3VleHc5dDd1OTEybTUyamVuMnJlenJteXk0MXF1bnFmciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1JmGiBtqTuehfYxuy9/giphy.gif", // 5. พี่อยากขอบคุณ
+            "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2wzM3h4cnVoYm1mYnZoamRpdnJ3aTkyZTdqdDZqd3k2N2ZsbTNjcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Zl7u48zLVFgLpRwq6f/giphy.gif"  // 6. สุดท้ายนี้
+        ];
+
+        const steps = [
+            { text: "จ๊ะเอ๋เจ้าเด็ก! วันนี้เป็นวันวาเลนไทน์<br>พี่ไม่ได้มีดอกไม้จริงๆ มาจีบ<br>แต่พี่มีอะไรจะบอก....", btn: "กดเพื่อดูความในใจ ❤️" },
+            { text: "พี่ยังชอบหนูอยู่ทู๊กกกกกกกกกวัน<br>ไม่รู้ว่าจะจีบหนูยังไง<br>ในใจก็ไม่กล้า กลัวหนูรำคาญพี่ 555", btn: "ถัดไป 👉" },
+            { text: "แต่พี่ก็จะคอยเป็นพลังบวก<br>ให้เจ้าเด็กเสมอเลยนะ", btn: "ต่อๆ 😊" },
+            { text: "ไม่ว่าวันไหนจะเจอเรื่องแย่ๆมา <br>หรือเหนื่อย<br>พี่ก็พร้อมให้กำลังใจเสมอนะ<br>จะให้กำลังใจแบบเย้อๆ เลย!<br>พี่มีความสุขทุกครั้งที่ได้คุยด้วย", btn: "อ่านต่ออีกนิด" },
+            { text: "พี่อยากขอบคุณที่คอยให้กำลังใจกันมาโดยตลอด<br>เป็นพลังบวกให้พี่ได้มากเลยรู้มั้ย", btn: "ต่อไป..." },
+            { text: "และสุดท้ายนี้... ไม่ว่าหนูจะคิดยังไง<br>พี่ก็ยังหวังดีด้วยเสมอนะ<br><span class='highlight'>// เจ้าคนเก่ง //</span>", btn: "กดรับของเซอร์ไพรส์ 🎁" }
+        ];
+
+        let currentStep = 0;
+
+        function nextStep() {
+            const dialogue = document.getElementById('dialogue-text');
+            const btn = document.getElementById('action-btn');
+            const mainImage = document.getElementById('main-image');
+            const heartAnim = document.getElementById('heart-anim');
+
+            // Play Heart Ripple Animation
+            heartAnim.classList.remove('play-heart-anim');
+            void heartAnim.offsetWidth; 
+            heartAnim.classList.add('play-heart-anim');
+
+            // ถ้าเป็นขั้นตอนสุดท้ายแล้ว (แต่ยังโชว์หน้าสุดท้ายอยู่) แล้วกดปุ่ม -> ไปของขวัญ
+            // เราเช็คว่า currentStep เกินจำนวน steps หรือไม่
+            if (currentStep >= steps.length) {
+                goToSurprise();
+                return;
+            }
+
+            // --- เปลี่ยนหน้าปกติ ---
+            dialogue.style.opacity = 0; 
+            mainImage.classList.remove('gif-change-anim');
+            void mainImage.offsetWidth;
+            mainImage.classList.add('gif-change-anim');
+
+            setTimeout(() => {
+                // เอา class ตัวใหญ่ (Intro) ออก
+                dialogue.classList.remove('intro-text'); 
+                
+                dialogue.innerHTML = steps[currentStep].text;
+                btn.innerText = steps[currentStep].btn;
+                dialogue.style.opacity = 1;
+                mainImage.src = gifList[currentStep]; 
+                
+                // บวกเลขหน้า รอไว้สำหรับการกดครั้งหน้า
+                currentStep++;
+            }, 300);
+        }
+
+        function goToSurprise() {
+            const storyContainer = document.getElementById('story-container');
+            const surpriseBox = document.getElementById('surprise-box');
+
+            // 1. สั่งให้หน้า Story หายไป
+            storyContainer.classList.add('fade-out-up');
+            
+            // 2. สั่งให้หน้าของขวัญโผล่มาทันที (Transition CSS จะจัดการให้ค่อยๆ มาเอง)
+            setTimeout(() => {
+                storyContainer.classList.add('hidden'); // ซ่อนถาวร
+                surpriseBox.classList.add('show-surprise'); // เพิ่ม class โชว์ของขวัญ
+            }, 500); 
+        }
+
+        function openGift() {
+            const giftContainer = document.getElementById('gift-container');
+            const giftTitle = document.getElementById('gift-title');
+            const roseFlower = document.getElementById('rose-flower');
+            const finalText = document.getElementById('final-text');
+            const bgm = document.getElementById('bgm');
+
+            if(giftContainer.classList.contains('open')) return;
+
+            bgm.volume = 0.6;
+            bgm.play().catch(e => console.log("Audio prevent:", e));
+
+            const rect = giftContainer.getBoundingClientRect();
+            createSparkles(rect.left + rect.width/2, rect.top + rect.height/2);
+
+            giftContainer.classList.add('open');
+            
+            setTimeout(() => {
+                roseFlower.classList.add('rose-show');
+            }, 600);
+
+            setTimeout(() => {
+                 giftContainer.classList.add('vanish');
+                 giftTitle.style.opacity = 0;
+            }, 1200);
+            
+            setTimeout(() => {
+                 finalText.classList.add('show');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
